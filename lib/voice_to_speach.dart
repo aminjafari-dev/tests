@@ -19,6 +19,7 @@ class _SpeechToTextExampleState extends State<SpeechToTextExample> {
 
   void _startListening() async {
     bool available = await _speech.initialize(
+
       onStatus: (status) => print('onStatus: $status'),
       onError: (errorNotification) => print('onError: $errorNotification'),
     );
