@@ -1,0 +1,26 @@
+name: amin_test
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.2.3 <4.0.0'
+
+dependencies:
+  app_tutorial: ^1.0.6
+  flutter:
+    sdk: flutter
+  speech_to_text: ^7.0.0
+  tutorial_coach_mark: ^1.2.11
+  webview_flutter: ^4.7.0
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
