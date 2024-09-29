@@ -1,5 +1,9 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:amin_test/voice_to_speach.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -8,6 +12,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    checkCodeNamesVersion();
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SpeechToTextExample(),
@@ -20,27 +25,26 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xff002441),
-      appBar: AppBar(
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.settings),
-            onPressed: () {
-              // Handle settings button press
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              // Handle menu button press
-            },
-          ),
-        ],
-      ),
-      body: 
-      Image.asset("assets/spotlight.png")
-      // Image.asset("assets/backing.png")
-    );
+        appBar: AppBar(
+          elevation: 0,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                // Handle settings button press
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+                // Handle menu button press
+              },
+            ),
+          ],
+        ),
+        body: Image.asset("assets/spotlight.png")
+        // Image.asset("assets/backing.png")
+        );
   }
 }
 
@@ -77,7 +81,9 @@ class SpotlightPainter extends CustomPainter {
 
     Rect ovalRect = Rect.fromLTWH(
       size.width * 0.15,
-      size.height - (size.height * 0.08),  // Adjust the height to move the oval slightly above the bottom
+      size.height -
+          (size.height *
+              0.08), // Adjust the height to move the oval slightly above the bottom
       size.width * 0.7,
       size.height * 0.16,
     );
@@ -90,3 +96,33 @@ class SpotlightPainter extends CustomPainter {
     return false;
   }
 }
+
+
+Future<void> checkCodeNamesVersion() async {
+  // GitHub raw URL to your .txt file
+  final url = 'https://raw.githubusercontent.com/aminjafari-dev/chechVersion/main/check_versions.txt';
+
+  // Fetch the file from GitHub
+  final response = await http.get(Uri.parse(url));
+  
+  if (response.statusCode == 200) {
+    // Parse the response body as JSON
+    Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+    
+    // Get the version of code_names from the file
+    int cloudCodeNamesVersion = jsonResponse['code_names'];
+
+    // Replace this with the actual current version of your app or logic
+    int localCodeNamesVersion = 0; // Example value
+    
+    if (cloudCodeNamesVersion != localCodeNamesVersion) {
+      // Trigger the action, e.g., show a dialog, update something, etc.
+      print("Version mismatch! Need to update.");
+    } else {
+      print("Version is up to date.");
+    }
+  } else {
+    print("Failed to load version file from GitHub: ${response.statusCode}");
+  }
+}
+
