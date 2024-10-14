@@ -10,10 +10,13 @@ dependencies:
   app_tutorial: ^1.0.6
   flutter:
     sdk: flutter
-  http: ^1.2.2
-  speech_to_text: ^7.0.0
-  tutorial_coach_mark: ^1.2.11
-  webview_flutter: ^4.7.0
+
+  image_picker: ^0.8.7
+  image_cropper: ^4.0.1
+  path_provider: ^2.0.15
+  permission_handler: ^10.2.0
+  http: ^0.13.6
+
 
 dev_dependencies:
   flutter_lints: ^2.0.0
